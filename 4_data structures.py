@@ -1,3 +1,4 @@
+###Introduction to Python - Nackademin
 ## Session 4 - Python Data Structures
 #Based on Chapters 4 and 5 of AtBS
 
@@ -8,11 +9,11 @@
 L = [1, 2, 3]
 L2 = [4, 5, 2, 5]
 #note, order does not mean any specific numerical or alphabetical order of the items of the list.
-#just that the list always keeps these values in the same order as when they were created, unless
+#simply that a list always its values in the same order as when they were created, unless
 #you specify later to change the order in some way
 
 #lists work with all data types
-L_str = ["a", "list", "of", "string"]
+L_str = ["a", "list", "of", "strings"]
 L_str
 
 #you can mix data types
@@ -41,9 +42,10 @@ spam = ["Cat", "Bat", "Rat", "Elephant"]
 spam[2]
 
 #to extract multiple elements, we use the : operator within brackets
-
+#extract from element 1 to element 3
 spam[1:3]
 #remember, left inclusive, right exclusive!
+
 
 #if we want the first three items, we can write
 spam[0:3]
@@ -59,22 +61,36 @@ spam[-1]
 spam[-3:]
 
 
+#if you want to extract non-consecutive elements, you need to use a different (non base-python) data structure
+#or define your own custom function.
+#here are two possible solutions:
+import numpy as np
+L_np = np.array(spam)
+L_np[[0,2]]
+
+def list_extract(list, a, b):
+    return [list[a], list[b]]
+list_extract(spam, 0, 2)
+
+
+
 
 
 ##-----------------------------------------------------------
 #Working with lists
 
-#using indexes, we can change values of alist
+#using indexes, we can change values of a list
 spam
 spam[2] = "a bigger rat"
 spam
+
 
 
 #the length of a list can be found with the len() function
 len(L)
 len(spam)
 
-#the len() argument counts the length of the object you call the function on.
+#the len() functions counts the length of the object you call the function on.
 #this works on other things too, not just lists
 len("This is a sentence. The len() argument will count the number of items in the sentence.")
 
@@ -90,16 +106,22 @@ spam
 del spam[3]
 spam
 
-#lists can be created with the list() function as well because sometimes typing out
-#every value of a list is too tedious.  Imagine if you want a list of 100 items
+#lists can be created with a specific list() function as well because sometimes typing out
+#every value of a list is too tedious.  Imagine if you want a list of 40 items:
 L = list(range(10, 50))
 L
+#other times you may wish to coerce an object in a different data structure to a list, in this case
+#the list() function is necessary. 
+#for example, a tuple is created with () rather than [] and has some different properties. If we want
+#to convert a tuple to a list, we can wrap it in a list() call
+my_tuple = ("cat", "dog", 5)
+type(my_tuple)
 
-#this works with other data types too
-L2 = list(("cat", "dog", 5))
+L2 = list(my_tuple)
 L2
+type(L2)
 
-#the list() function coerces an object into a list
+#we'll see this used again further below with the map() function
 
 
 
@@ -107,28 +129,28 @@ L2
 
 ##---------------------------------------------------------
 #Using for loops with lists
-#remeber this:
+#remember this:
 for i in range(4):
     print(i)
     
-#we can do something similar over the range of a list
-
-L = list(range(10, 40))
-L
-
-for i in L:
+#we can do something similar over the elements of a list
+#we'll use our trusty spam list
+spam = ["Cat", "Bat", "Rat", "Elephant"]
+spam
+for i in spam:
     print(i)
     
-for i in L2:
-    print(i)
-    
+#again, is an indexer, it can be anything
+for element in spam:
+    print(element)
+
 
 
 ##-----------------------------------------------------------------
 #Methods
 #methods are like functions, but they are called on objects. 
 #the format is object.method()
-#for example, index() is a method that can be called on a list to determine the position of
+#for example, .index() is a method that can be called on a list to determine the position of
 # a specific input
 
 spam = ['hello', 'hi', 'howdy', 'heyas']
@@ -146,6 +168,9 @@ spam.index("hej")
 #and insert lets you specify where in the list a new item goes
 spam.insert(2, "bonjour")
 spam
+#not the difference between the above and
+spam[2] = "bonjour"
+#which would replace the third element with bonjour rather than adding an element in the third position
 
 #you can remove specific values without knowing the index number
 spam.remove("bonjour")
@@ -177,9 +202,14 @@ L.sort()
 #create a tuple with ()
 T = (1, 2, 3)
 
-#things like append and sort do not work
+#access elements with indexing
+T[2]
+
+#but things like append, sort, and assignment do not work
 T.append(5)
 T.sort()
+T[2] = 1
+
 
 
 
@@ -190,7 +220,8 @@ T.sort()
 #The third multi-value data type, dictionaries are like lists but they are a collection of 
 #key-values pairings.  
 birthdays = {'Alice': 'Apr 1', 'Bob': 'Dec 12', 'Carol': 'Mar 4'}
-
+birthdays
+#they are created with curly brackets, key: value, key: value etc.
 
 
 #getting dictionary information with methods
@@ -203,8 +234,6 @@ birthdays.items()
 for d in birthdays:
     print(d)
     
-for k, v in birthdays:
-    print(k, v)
     
 #to get values you need to loop over the method
 for v in birthdays.values():
@@ -216,7 +245,7 @@ for i in birthdays.items():
     
 for k, v in birthdays.items():
     print(k, v)
-    
+
 
 
 
@@ -264,13 +293,14 @@ any(elem in ["Alice", "Bob"] for elem in birthdays.keys())
     
 #---------------------------------------------------------
 #Building a list
-#the list() function that I showed you above is a way to coerce a pre-existing object into a list
 
-#two primary techniques:
+#three primary techniques:
 #for loops
 
 #create a blank list
 L = []
+L
+#then fill it in the loop
 for i in range(10):
     L.append(i)
 L
@@ -303,28 +333,53 @@ def fun_fib(n):
     return F
 
 fun_fib(10)
+fun_fib(27)
         
 
 #List comprehension
 #a shortcut to creating lists so you don't have to write the full for loop
 L = [i for i in range(10)]
 L
+#is identical to:
+L = []
+for i in range(10):
+    L.append(i)
+L
 
 L2 = [i**2 for i in range(10)]
+L2
+#is identical to:
+L2 = []
+for i in range(10):
+    L2.append(i**2)
 L2
 
 
 L3 = [i + i - 1 if i > 0 else i for i in range(10)]
 L3
+#is identical to:
+L3 = []
+for i in range(10):
+    if i > 0:
+        L3.append(i + i - 1)
+    else:
+        L3.append(i)
+L3
 
+#Comprehensions are very useful because they allow you to write short, neat code.
+#But they quickly become difficult to read as statements become more complex
 
-#Dictionary comprehension works too, here are some examples
+#Dictionary comprehension works too, see here for some examples
 # http://cmdlinetips.com/2018/01/5-examples-using-dict-comprehension/
+
 
 
 
 ###----------------------------------------------------------
 ## The map function and lambda functions
+
+##
+# the map function
 
 ##an efficient way to iterate over an object and apply a function to each element
 #similar objective to list comprehension, but easier with multiple inputs/more complex functions
@@ -363,6 +418,10 @@ def list_sum(x, y):
 sum_list = list(map(list_sum, a, b))
 sum_list
 
+
+##
+#lambda functions
+
 #in the example above I defined a function first, then mapped over it.  But if you are mapping a function
 #only one time, you can skip the definition step and define it in the map function itself using 
 # a so-called "lambda" function
@@ -371,7 +430,7 @@ sum_list_lambda = list(map(lambda x,y: x + y, a, b))
 sum_list_lambda
 #the benefit? less code, you don't need to define a function that will stay in memory
 #the downside? this function is not available for future use. So this technique is only useful
-#if you will only use it once!! If you plan on using this function several times, it is better
+#if you will only use the function once!! If you plan on using this function several times, it is better
 #to define it in the normal fashion.
 
 

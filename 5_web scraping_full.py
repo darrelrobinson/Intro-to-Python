@@ -1,7 +1,12 @@
+##Web scraper of imdb pages
+##This gets the first 250 entries from the list of 2018 movies sorted by number of votes
+##each page has 50 entries so the code loops over the first 5 pages of this list
+##to increase/decrease the number of movies to return update the pages list
+
 import requests
 import bs4 as bs
 import re
-import pandas as pd
+from pandas import DataFrame
 from time import sleep
 
 url = 'http://www.imdb.com/search/title?release_date=2018&sort=num_votes,desc&start='
@@ -14,6 +19,8 @@ titles = []
 revenues = []
 ratings = []
 
+
+##start of the for loop
 for p in pages:
     pg = url + p
     
@@ -24,7 +31,7 @@ for p in pages:
     imdb_soup = bs.BeautifulSoup(response.text)
     
     #get the list of containers
-    movie_containers = imdb_soup.find_all('div', class_ = 'lister-item mode-advanced')
+    movie_containers = imdb_soup.find_all('div', class_ = 'lister-item-content')
 
     #fill lists with 
     for container in movie_containers:
@@ -36,24 +43,31 @@ for p in pages:
     #it's always a good idea to add a sleep call when you scrape multiple pages,
     #you don't want to overload their server and crash the page 
     sleep(5)
+    
+##end of for loop
+###---------------------------------------------------------
+    
 
     
+###----------------------------------------------------------    
 ##now we can do our formatting
 #format ratings as numeric
 ratings = [float(i) for i in ratings]
 
 #format revenues
 revenues = [None if "$" not in rev else rev for rev in revenues]
-revenues = [float(re.sub("[M$]", "", rev)) if rev != None else rev for rev in revenues]
+revenues = [float(re.sub("[M$]", "", rev)) if rev is not None else rev for rev in revenues]
   
 
 
-imdb_df = pd.DataFrame({"Movie":titles,
+imdb_df = DataFrame({"Movie":titles,
                         "Revenues":revenues,
                         "Ratings":ratings})
     
 imdb_df
-#but now that we've copy and pasted our code, we should write a function
+
+
+#define a function to plot the movies by a variable.  
 def plot_movies(df, x = "Ratings"):
     df2 = df.sort_values(by = x)
     return df2[-20:].plot.barh(x = "Movie", 
@@ -61,7 +75,7 @@ def plot_movies(df, x = "Ratings"):
             rot = 0, 
             color = "blue")    
 
-#let's use our function now instead...
+#call the above function.  
 plot_movies(imdb_df, "Ratings")
 plot_movies(imdb_df, "Revenues")
 plot_movies(imdb_df.dropna(), "Revenues")

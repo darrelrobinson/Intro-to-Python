@@ -3,10 +3,10 @@
 
 
 ###
-### Comments
-### These are probably the most important things in your code
-### Help others and future self to understand your code
-### Comment rather too much than too little, you'll thank yourself later
+### Use # to write comments
+### These are probably the most important thing in your code
+### Help others and your future self to understand your code
+### Comment too much rather than too little, you'll thank yourself later
 
 
 
@@ -31,13 +31,12 @@
 
 #order of operations
 2 + 3 * 6
-
 (2 + 3) * 6
 
 
 #syntax errors
 5 +
-
+#There are many other types of error message, we'll come across others as we work through the scripts
 
 
 
@@ -48,13 +47,15 @@
 type(1)
 
 #Float (decimals)
-# eg 1.5, 3,7, 4.35364262
+# eg 1.5, 3,7, 4.35364262, 2.0
 type(4.35364262)
+type(3.0)
 
 #Strings (text)
 #text wrapped in " or '
 #eg "this is a string" 'so is this'
 type("this is a string")
+type('so is this')
 
 
 
@@ -66,7 +67,7 @@ type("this is a string")
 "42"
 type("42")
 
-#cause an error
+#can't conctenate different data types - causes an error
 "two" + 42
 
 #but this works
@@ -76,7 +77,7 @@ type("42")
 
 
 ##coercion
-#to make this "two" + 42 work, you need to change the format of the 42
+#to make "two" + 42 work, you need to change the format of the 42
 str(42)
 "two" + str(42)
 
@@ -85,7 +86,7 @@ str(42)
 float(3)
 int("42")
 
-#int can be used for rounding down
+#int can be used for rounding down a float
 int(7.7)
 
 
@@ -139,11 +140,13 @@ my_var = "this is a variable name in snake style"
 
 #variable names are case sensitive
 #Doesn't really matter which style you choose, just pick one and stick to it
+#google has style guides for many programming languages. You can choose to follow 
+#from there if you wish.  
 
 
 ## The Print function
 print("hello world!")
-#seems unnecessary now, but is very useful for more complex things later on
+#seems unnecessary now, can be useful for other things.
 
 
 
