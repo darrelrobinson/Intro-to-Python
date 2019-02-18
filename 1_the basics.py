@@ -159,14 +159,23 @@ print("hello world!")
 #can go through code one line at a a time, etc.
 
 #but eventually you will want to run the whole script
+#let's make a program
+
+
+##first program
+print("Hej!")
+print("Vad heter du?")
+name = input()
+print("Trevligt att träffas, ", name)
+
+print("Hur gammal är du?")
+age = input()
+print("Du är " + str(age))
+
+
+
 #save the script as a python file, now you've created a program
-#programming is edit, compile, run
-#write the first program.py file
-#run in idle
-#then run in command line
-#name variable is gone in command line after it has run
-
-
+#run in idle or in the command line
 
 
 
