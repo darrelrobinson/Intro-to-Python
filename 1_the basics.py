@@ -10,6 +10,8 @@
 
 
 
+
+
 #-----------------------------------------------
 
 ##Expressions
@@ -26,7 +28,8 @@
 21 % 4
 21 // 4
 
-
+4 % 2
+5 % 2
 
 
 #order of operations
@@ -45,6 +48,8 @@
 #Integers (whole numbers)
 #eg 1, 2, 3, -1 etc.
 type(1)
+type(10)
+
 
 #Float (decimals)
 # eg 1.5, 3,7, 4.35364262, 2.0
@@ -56,6 +61,7 @@ type(3.0)
 #eg "this is a string" 'so is this'
 type("this is a string")
 type('so is this')
+
 
 
 
@@ -73,6 +79,9 @@ type("42")
 #but this works
 "two" + "42"
 
+"two - " + str(42)
+str("-")
+str(-42)
 
 
 
@@ -92,6 +101,7 @@ int(7.7)
 
 ##string plus number doesn't work, but multiplication does!
 "mystring" * 5
+
 #but this doesn't work
 "mystring" * "anotherstring"
 #nor this:
@@ -105,7 +115,10 @@ int(7.7)
 #think of them as boxes in which you can place values
 #initialize a variable with assignment
 my = 5
+my
+
 var = 10
+var
 
 #after you have assigned them, you can use them in expressions
 my * var
@@ -124,6 +137,11 @@ string_var * float_var
 
 #variables can be overwritten
 string_var = "no more coffee"
+string_var
+string_var = 5
+string_var
+
+
 
 ##Variable names
 #one word only
@@ -146,6 +164,12 @@ my_var = "this is a variable name in snake style"
 
 ## The Print function
 print("hello world!")
+print(5)
+
+my_string = "coffee"
+my_string
+print(my_string)
+
 #seems unnecessary now, can be useful for other things.
 
 
@@ -180,11 +204,7 @@ print("Du är " + str(age))
 
 
 
-
-
 ###---------------------------------------------------------
-
-
 
 
 

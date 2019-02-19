@@ -8,6 +8,11 @@
 #use square brackets [ ] to define a list, and separate values with a comma
 L = [1, 2, 3]
 L2 = [4, 5, 2, 5]
+
+L
+L2
+
+
 #note, order does not mean any specific numerical or alphabetical order of the items of the list.
 #simply that a list always its values in the same order as when they were created, unless
 #you specify later to change the order in some way
@@ -51,6 +56,7 @@ spam[1:3]
 spam[0:3]
 #or
 spam[:3]
+spam[1:]
 
 #negative numbers index from the end
 spam[-1]
@@ -60,6 +66,8 @@ spam[-1]
 #if we want the last three elements
 spam[-3:]
 
+#
+spam[0:3:2]
 
 #if you want to extract non-consecutive elements, you need to use a different (non base-python) data structure
 #or define your own custom function.
@@ -96,6 +104,8 @@ len("This is a sentence. The len() argument will count the number of items in th
 
 
 #combining (concatenating) lists
+L
+spam
 L + spam
 
 #repeating lists
@@ -106,10 +116,14 @@ spam
 del spam[3]
 spam
 
+
+
 #lists can be created with a specific list() function as well because sometimes typing out
 #every value of a list is too tedious.  Imagine if you want a list of 40 items:
 L = list(range(10, 50))
 L
+
+
 #other times you may wish to coerce an object in a different data structure to a list, in this case
 #the list() function is necessary. 
 #for example, a tuple is created with () rather than [] and has some different properties. If we want
@@ -117,9 +131,14 @@ L
 my_tuple = ("cat", "dog", 5)
 type(my_tuple)
 
+my_tuple[2] = "b"
+
 L2 = list(my_tuple)
 L2
 type(L2)
+L2[2] = "b"
+L2
+
 
 #we'll see this used again further below with the map() function
 
@@ -132,6 +151,7 @@ type(L2)
 #remember this:
 for i in range(4):
     print(i)
+    
     
 #we can do something similar over the elements of a list
 #we'll use our trusty spam list
@@ -169,7 +189,10 @@ spam.index("hej")
 spam.insert(2, "bonjour")
 spam
 #not the difference between the above and
+spam = ['hello', 'hi', 'howdy', 'heyas']
+spam
 spam[2] = "bonjour"
+spam
 #which would replace the third element with bonjour rather than adding an element in the third position
 
 #you can remove specific values without knowing the index number
@@ -189,6 +212,7 @@ L
 #but you can't sort if mixed data types
 L = ["string", 2, 1, "text"]
 L.sort()
+
 
 
 
@@ -267,25 +291,6 @@ colors = ["blue", "red", "green"]
 "blue" or "pink" in colors
 
 
-#using all or any
-#all - check if list1 contains all elements of list 2
-all(elem in ["blue", "red"] for elem in colors)
-all(elem in colors for elem in ["blue", "red"])
-
-#any - check if list1 contains any element of list2
-any(elem in ["blue", "red"] for elem in colors)
-any(elem in colors for elem in ["blue", "red"])
-
-
-
-#the same can be applied to lists
-"Alice" in birthdays.keys()
-
-any(elem in ["Alice", "Bob"] for elem in birthdays.keys())
-
-
-
-
 
 
 
@@ -340,11 +345,14 @@ fun_fib(27)
 #a shortcut to creating lists so you don't have to write the full for loop
 L = [i for i in range(10)]
 L
+
 #is identical to:
 L = []
 for i in range(10):
     L.append(i)
 L
+
+
 
 L2 = [i**2 for i in range(10)]
 L2
@@ -353,6 +361,7 @@ L2 = []
 for i in range(10):
     L2.append(i**2)
 L2
+
 
 
 L3 = [i + i - 1 if i > 0 else i for i in range(10)]
@@ -375,6 +384,30 @@ L3
 
 
 
+#using all or any
+#all - check if list1 contains all elements of list 2
+colors
+all(elem in ["blue", "red"] for elem in colors)
+all(elem in colors for elem in ["blue", "red"])
+
+#any - check if list1 contains any element of list2
+any(elem in ["blue", "red"] for elem in colors)
+any(elem in colors for elem in ["blue", "red"])
+
+
+
+#the same can be applied to lists
+"Alice" in birthdays.keys()
+
+any(elem in ["Alice", "Bob"] for elem in birthdays.keys())
+
+
+
+
+
+
+
+
 ###----------------------------------------------------------
 ## The map function and lambda functions
 
@@ -384,8 +417,14 @@ L3
 ##an efficient way to iterate over an object and apply a function to each element
 #similar objective to list comprehension, but easier with multiple inputs/more complex functions
 fruits = ["apples", "bananas", "oranges"]
+len(fruits)
+
+m = map(len, fruits)
+m
+
 len_fruits = list(map(len, fruits))
 len_fruits
+
 #applies the function len to each element of the list fruits
 #you have to wrap a list() around the map function (or set, whatever data structure you want as an output)
 
@@ -398,6 +437,7 @@ len_fruits_loop = []
 for x in fruits:
     len_fruits_loop.append(len(x))
 len_fruits_loop
+
 
 #the advantage of map is that you can apply more complex functions easier, for example with multiple inpouts
 #say you want to add the elements of two lists
@@ -415,6 +455,7 @@ a[2] + b[2]
 
 def list_sum(x, y):
     return x + y
+
 sum_list = list(map(list_sum, a, b))
 sum_list
 
@@ -428,6 +469,7 @@ sum_list
 
 sum_list_lambda = list(map(lambda x,y: x + y, a, b))
 sum_list_lambda
+
 #the benefit? less code, you don't need to define a function that will stay in memory
 #the downside? this function is not available for future use. So this technique is only useful
 #if you will only use the function once!! If you plan on using this function several times, it is better

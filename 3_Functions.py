@@ -25,20 +25,28 @@ hello()
 
 #the above function, hello(), has no arguments.  Nothing is written between the ().
 def hello(name):
-    print("Hello, " + name)
+    print("Hello,", name)
     
 #now we have a new hello function with the parameter, or argument, name
 #when we call this function we need to supply the parameter with a values
 hello("bob")
 hello("emma")
+
+
+
 #if we don't we will get an error
 hello()
 #because the function does not know what value to give to the name argument
+
+
 
 #if you want to assign a default argument, you can do it in the def call
 def hello(name = "please give a name"):
     print("Hello, " + name)
 hello()
+
+
+
 #but if a name argument is supplied, the default value is ignored
 hello("bob")
 #you will generally want to do this if there is a really common value for a certain argument.
@@ -61,6 +69,11 @@ spam
 
 def add_a_b(a = 0, b = 0):
     return a + b
+
+add_a_b(2, 1)
+
+
+
 add_a_b(2, 4)
 #these values can then be saved into other variables for later use
 x = add_a_b(2, 4)
@@ -71,6 +84,9 @@ x
 #just like the print function
 def add_a_b2(a, b):
     a + b
+    
+    
+    
 #note that there is no return
 x2 = add_a_b2(1, 2) #so nothing gets saved here. there is no print either so nothing is printed
 x2 #so this is blank
@@ -87,6 +103,8 @@ x2 is None
 #available both to functions and outside of functions
 def math_func(num1 = 2, num2 = 4):
     return num1 + num2
+
+
 math_func(3, 4)
 num1
 #num1 is defined in a function, it is therefore not accessible outside of that function
@@ -96,6 +114,10 @@ def math_fun(num1, num2):
     return num1 + num2 + glob_num
 
 math_fun(1, 2)
+
+
+
+
 #glob_num is defined in the global environment so it is available both outside of functions and
 #within functions
 glob_num
@@ -131,7 +153,8 @@ def divider(divide_by):
         return 42 / divide_by
     except ZeroDivisionError:
         print("Error: can't divide by zero")
-        
+
+divider(12)
 divider(0)
 
 #you can write whatever error message you want, this is perfectly valid

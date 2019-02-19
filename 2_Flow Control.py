@@ -53,6 +53,9 @@ True == False
 0 == True
 2 == True
 
+int(True)
+int(False)
+
 
 
 #Not with boolean operators
@@ -95,7 +98,8 @@ False is not False
 #Flow Control Statements
 #if statements
 # if condition is met, do something
-a = 5
+a = 3
+
 if a >= 4:
     print(a)
     
@@ -108,6 +112,8 @@ if a >= 4:
 else:
     print(a, "is less than 4")
 
+
+
 #elif statements
 #if there are two or more different possible conditions that can be met
 a = 3
@@ -116,6 +122,8 @@ if a >= 4:
     print(a)
 elif month == "february":
     print("it's february")
+
+
 
 #the statement outputs at the first condition that is met
 a = 5
@@ -159,7 +167,7 @@ while a <= 5:
     print(a)
     a += 1
 #nothing
-    
+
 #but what about if it never evaluates to false?
 #it will keep going forever
 #click on the console with the mouse to put focus there, then hit ctrl-c on the keyboard to stop a runaway script
@@ -167,6 +175,8 @@ a = 10
 while a >= 5:
     print(a)
     a += 1
+    
+    
 
 #an annoying loop
 name = ''                           
@@ -204,6 +214,7 @@ print('Thank you!')
 #range() creates a sequence of numbers from 0 to 6 (or whatever number you choose)                
 for i in range(6):
     print(i)
+    
     
 for x in range(6):
     print(x)
@@ -249,6 +260,7 @@ range(0, 6, 1)
 #but there is not default for the "stop" argument
 for y in range():
     print(y)
+    
 #so at least one number must be specified
 
 

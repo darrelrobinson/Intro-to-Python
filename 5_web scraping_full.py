@@ -11,7 +11,9 @@ from time import sleep
 
 url = 'http://www.imdb.com/search/title?release_date=2018&sort=num_votes,desc&start='
 pages = list(range(1, 202, 50))
+pages
 pages = [str(i) for i in pages]
+
 
 
 #create empty lists to be filled

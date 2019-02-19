@@ -7,8 +7,10 @@ import bs4 as bs #the beautiful soup module is the go-to module for parsing web 
 #it turns the pile of web code that gets read into python with the requests.get call
 #into something more manageable for which it is easier to extract the data that we want
 
+
 #here is the webpage we are going to scrape, let's view it in our browser first and get a handle on it
 url = 'http://www.imdb.com/search/title?release_date=2018&sort=num_votes,desc&page=1'
+
 
 
 #the requests.get call pulls in the source code
@@ -27,6 +29,7 @@ type(imdb_soup)
 movie_containers = imdb_soup.find_all('div', class_ = 'lister-item-content')
 print(type(movie_containers))
 print(len(movie_containers))
+
 
 #now we can look at the container and its contents, there is one for each movie in the page
 movie_containers[0]
@@ -49,7 +52,10 @@ movie_containers[0].h3.a.text
 movie_containers[0].find_all("span")
 movie_containers[0].find_all("span")[-1].text
 
+
 #rating is a little clearer, there is a class to find
+movie_containers[0].find("div", class_ = "inline-block ratings-imdb-rating")
+
 movie_containers[0].find("div", class_ = "inline-block ratings-imdb-rating").strong.text
 
 
@@ -66,6 +72,8 @@ for container in movie_containers:
     titles.append(container.h3.a.text)
     revenues.append(container.find_all("span")[-1].text)
     ratings.append(container.find("div", class_ = "inline-block ratings-imdb-rating").strong.text)
+
+
 
 
 titles
@@ -122,12 +130,16 @@ imdb_df = pd.DataFrame({"Movie":titles,
 imdb_df
 
 
-##some visualizations
-imdb_df.plot(kind = "barh")
-
 
 #let's look at the top-20
 imdb_df2 = imdb_df.sort_values(by = "Ratings")
+imdb_df2
+
+
+imdb_df3 = imdb_df.sort_values(by = "Ratings", ascending = False)
+imdb_df3
+
+
 imdb_df2[-20:].plot.barh(x = "Movie", 
         y = "Ratings", 
         rot = 0, 
@@ -141,6 +153,9 @@ imdb_df2[-20:].plot.barh(x = "Movie",
         rot = 0, 
         color = "blue")
 #not very nice with all the missing values, we'll fix this below...
+
+
+
 
 #but now that we've copy and pasted our code, we should write a function
 def plot_movies(df, x = "Ratings"):
